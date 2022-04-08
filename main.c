@@ -5,13 +5,13 @@ extern char *getwd ();
 
 int strlen(char * tab){                                 //str len compte la longueur du mot ou phrase
     int a = 0;
-    for(int i = 0; tab[i] !=0;i++){
+    for(int i = 0; tab[i] !='\0';i++){
         a++;
     }
     return a;
 }
 
-void * strcpy (void *dest, const void *src, size_t len){                //str copy du mot ou phrase
+void * strcpy(void *dest, const void *src, size_t len){                //str copy du mot ou phrase
     char *d = dest;
     const char *s = src;
     while (len--)
@@ -19,19 +19,18 @@ void * strcpy (void *dest, const void *src, size_t len){                //str co
     return dest;
 }
 
-char * current_direct (char *buf, size_t len){
+char * current_direct(char *buf, size_t len){
     char lepath[1000];
     char *result;
-    result = lepath;
 
     result = getwd(lepath);
-    if (result){
+    if(result){
         if (strlen (lepath) >= len) {
             return 0;
         }
-        if (!buf){
+        if(!buf){
             buf = malloc(sizeof(char)*len);
-            if (!buf) {
+            if(!buf) {
                 return 0;
             }
         }
@@ -42,10 +41,12 @@ char * current_direct (char *buf, size_t len){
 
 int main() {
     char cwd[256];
-    if (current_direct(cwd, sizeof(cwd)) == NULL)
+    current_direct(cwd, sizeof(cwd));
+    printf("directoire courrant: %s\n", cwd);
+    /*if (current_direct(cwd, sizeof(cwd)) == NULL)
         perror("getcwd() error");
     else
-        printf("directoire courrant: %s\n", cwd);
+        printf("directoire courrant: %s\n", cwd);*/
     return 0;
 }
 
